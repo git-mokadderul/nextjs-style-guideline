@@ -1,20 +1,37 @@
-# NEXT JS Style Guide
+# **🚀 Next.js Style Guide**
 
-## Table of Contents
+## **📖 Table of Contents**
+
+### **Core Concepts**
 
 1. [Next.js Lazy Loading](#nextjs-lazy-loading)
-1. [Next.js Code Splitting with `next/dynamic`](#nextjs-code-splitting-with-nextdynamic)
-1. [Lazy Loading of Images](#lazy-loading-of-images)
-1. [Using Built-in Components](#using-built-in-components)
-1. [Use CSS Modules](#use-css-modules)
-1. [Caching Data in Next.js](#caching-data-in-nextjs)
-1. [Use Route Handlers](#use-route-handlers)
-1. [Use Multiple Data Rendering Modes](#use-multiple-data-rendering-modes)
-1. [TypeScript Support](#typescript-support)
-1. [Enhance SEO in Next.js](#enhance-seo-in-nextjs)
-1. [Remove Unused Dependencies & Code](#remove-unused-dependencies--code)
-1. [Deploy Your Next.js App to Vercel](#deploy-your-nextjs-app-to-vercel)
-1. [Client Component Placement Strategy in Next.js](#client-component-placement-strategy-in-nextjs)
+2. [Next.js Code Splitting with `next/dynamic`](#nextjs-code-splitting-with-nextdynamic)
+3. [Lazy Loading of Images](#lazy-loading-of-images)
+
+### **Styling and Optimization**
+
+4. [Using Built-in Components](#using-built-in-components)
+5. [Use CSS Modules](#use-css-modules)
+6. [Remove Unused Dependencies & Code](#remove-unused-dependencies--code)
+
+### **Performance and Data Handling**
+
+7. [Caching Data in Next.js](#caching-data-in-nextjs)
+8. [Use Route Handlers](#use-route-handlers)
+9. [Use Multiple Data Rendering Modes](#use-multiple-data-rendering-modes)
+
+### **Advanced Features**
+
+10. [TypeScript Support](#typescript-support)
+11. [Enhance SEO in Next.js](#enhance-seo-in-nextjs)
+
+### **Deployment**
+
+12. [Deploy Your Next.js App to Vercel](#deploy-your-nextjs-app-to-vercel)
+
+### **Best Practices**
+
+13. [Client Component Placement Strategy in Next.js](#client-component-placement-strategy-in-nextjs)
 
 ---
 
