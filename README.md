@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-### **File structure conventions**
+### **Core Concepts**
 
 1. [Next.js Lazy Loading](#nextjs-lazy-loading)
 2. [Next.js Code Splitting with `next/dynamic`](#nextjs-code-splitting-with-nextdynamic)
