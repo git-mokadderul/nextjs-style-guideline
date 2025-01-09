@@ -52,11 +52,11 @@
 
 ### **Data Services**
 
-28. [Talk to the server through a service](#Talk-to-the-server-through-a-service)
+31. [Talk to the server through a service](#Talk-to-the-server-through-a-service)
 
 ### **Lifecycle hooks**
 
-28. [Implement lifecycle hook interfaces](#Implement-lifecycle-hook-interfaces)
+32. [Implement lifecycle hook interfaces](#Implement-lifecycle-hook-interfaces)
 
 ---
 
