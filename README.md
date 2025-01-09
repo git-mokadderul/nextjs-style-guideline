@@ -1,4 +1,4 @@
-# **🚀 Next.js Style Guide**
+# **🚀 Angular coding style guide**
 
 ## Table of Contents
 
