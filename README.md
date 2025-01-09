@@ -2,9 +2,9 @@
 
 ## Table of Contents
 
-### **Core Concepts**
+### **Single responsibility**
 
-1. [Next.js Lazy Loading](#nextjs-lazy-loading)
+1. [Rule of One](#Rule-of-One)
 2. [Next.js Code Splitting with `next/dynamic`](#nextjs-code-splitting-with-nextdynamic)
 3. [Lazy Loading of Images](#lazy-loading-of-images)
 
@@ -35,15 +35,79 @@
 
 ---
 
-# Next.js Best Practices for Excellence
+# File structure conventions
 
-Next.js is a powerful framework that enables developers to build performant and scalable web applications. To make the most out of Next.js, it’s essential to follow best practices that ensure code quality, maintainability, and optimal performance. Here are some Next.js best practices to help you achieve excellence in your projects:
+Some code examples display a file that has one or more similarly named companion files. For example, hero.component.ts and hero.component.html.
 
-## Next.js Lazy Loading
+The guideline uses the shortcut hero.component.ts|html|css|spec to represent those various files. Using this shortcut makes this guide's file structures easier to read and more terse.
 
-In Next.js, there’s a neat technique called lazy loading. It means that instead of bringing everything onto the webpage all at once, things only show up when you really need them. This helps the webpage use less data and load faster.
+# Single responsibility
 
-Next.js makes this happen using something called dynamic imports. Think of it like getting deliveries – you only ask for a package when you’re ready to use it, not all of them at once. By doing this, you can split your website’s code into smaller parts. Each part only shows up when it’s actually required. This makes your webpage start up faster because it doesn’t have to load everything from the beginning. It’s like setting up your webpage piece by piece instead of all at the same time.
+Apply the single responsibility principle (SRP) to all components, services, and other symbols. This helps make the application cleaner, easier to read and maintain, and more testable.
+
+## Rule of One
+
+Style 01-01
+Do define one thing, such as a service or component, per file.
+
+Consider limiting files to 400 lines of code.
+
+Why?
+One component per file makes it far easier to read, maintain, and avoid collisions with teams in source control.
+
+Why?
+One component per file avoids hidden bugs that often arise when combining components in a file where they may share variables, create unwanted closures, or unwanted coupling with dependencies.
+
+Why?
+A single component can be the default export for its file which facilitates lazy loading with the router.
+
+The key is to make the code more reusable, easier to read, and less mistake-prone.
+
+The following negative example defines the AppComponent, bootstraps the app, defines the Hero model object, and loads heroes from the server all in the same file. Don't do this.
+
+1. app/heroes/hero.component.ts:
+
+   ```/* avoid */
+   import {Component, NgModule, OnInit} from '@angular/core';
+   import {BrowserModule} from '@angular/platform-browser';
+   import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+   interface Hero {
+   id: number;
+   name: string;
+   }
+   @Component({
+   selector: 'app-root',
+   template: `
+      <h1>{{title}}</h1>
+      <pre>{{heroes | json}}</pre>
+    `,
+   styleUrls: ['../app.component.css'],
+   standalone: false,
+   })
+   export class AppComponent implements OnInit {
+   title = 'Tour of Heroes';
+   heroes: Hero[] = [];
+   ngOnInit() {
+    getHeroes().then((heroes) => (this.heroes = heroes));
+   }
+   }
+   @NgModule({
+   imports: [BrowserModule],
+   declarations: [AppComponent],
+   exports: [AppComponent],
+   bootstrap: [AppComponent],
+   })
+   export class AppModule {}
+   platformBrowserDynamic().bootstrapModule(AppModule);
+   const HEROES: Hero[] = [
+   {id: 1, name: 'Bombasto'},
+   {id: 2, name: 'Tornado'},
+   {id: 3, name: 'Magneta'},
+   ];
+   function getHeroes(): Promise<Hero[]> {
+   return Promise.resolve(HEROES); // TODO: get hero data from the server;
+   }
+   ```
 
 **[⬆ back to top](#table-of-contents)**
 
@@ -54,12 +118,6 @@ Next.js code splitting is a technique used to split the JavaScript code of a Nex
 Next.js uses automatic code splitting by default. When you build your Next.js application, it analyzes your pages and components and generates separate bundles for each one. These bundles are then loaded on-demand as the user navigates through the application.
 
 `next/dynamic` is a feature offered by Next.js that allows you to import components dynamically. This is useful when you want to load a component only when it’s needed, such as when the user scrolls to a certain point on the page. To use `next/dynamic`, follow these steps:
-
-1. Import the `dynamic` function from `next/dynamic` in your Next.js component file:
-
-   ```javascript
-   import dynamic from "next/dynamic";
-   ```
 
 2. Wrap the component you want to dynamically load with the `dynamic` function:
 
