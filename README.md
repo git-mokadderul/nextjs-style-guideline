@@ -13,25 +13,43 @@
 4. [Using Built-in Components](#using-built-in-components)
 5. [Use CSS Modules](#use-css-modules)
 6. [Remove Unused Dependencies & Code](#remove-unused-dependencies--code)
+7. [CSS-in-JS with Styled Components](#CSS-in-JS-with-Styled-Components)
+8. [Optimizing Fonts and Icons](#Optimizing-Fonts-and-Icons)
 
 ### **Performance and Data Handling**
 
-7. [Caching Data in Next.js](#caching-data-in-nextjs)
-8. [Use Route Handlers](#use-route-handlers)
-9. [Use Multiple Data Rendering Modes](#use-multiple-data-rendering-modes)
+9. [Caching Data in Next.js](#caching-data-in-nextjs)
+10. [Use Route Handlers](#use-route-handlers)
+11. [Use Multiple Data Rendering Modes](#use-multiple-data-rendering-modes)
+12. [Server Actions](#Server-Actions)
+13. [GraphQL Integration](#GraphQL-Integration)
+14. [API Routes with Middleware](#API-Routes-with-Middleware)
+15. [Suspense for Data Fetching](#Suspense-for-Data-Fetching)
+16. [Error Handling](#Error-Handling)
 
 ### **Advanced Features**
 
-10. [TypeScript Support](#typescript-support)
-11. [Enhance SEO in Next.js](#enhance-seo-in-nextjs)
+17. [TypeScript Support](#typescript-support)
+18. [Enhance SEO in Next.js](#enhance-seo-in-nextjs)
+19. [WebSockets for Real-time Communication](#WebSockets-for-Real-time-Communication)
+20. [Experimental Features](#Experimental-Features)
 
 ### **Deployment**
 
-12. [Deploy Your Next.js App to Vercel](#deploy-your-nextjs-app-to-vercel)
+21. [Deploy Your Next.js App to Vercel](#deploy-your-nextjs-app-to-vercel)
+22. [Edge Functions](#Edge-Functions)
+23. [Global Middleware](#Global-Middleware)
 
 ### **Best Practices**
 
-13. [Client Component Placement Strategy in Next.js](#client-component-placement-strategy-in-nextjs)
+24. [Client Component Placement Strategy in Next.js](#client-component-placement-strategy-in-nextjs)
+25. [Security Best Practices](#Security-Best-Practices)
+26. [Progressive Enhancement and Graceful Degradation](#Progressive-Enhancement-and-Graceful-Degradation)
+27. [Next.js Middleware for Caching and Rate Limiting](#Nextjs-Middleware-for-Caching-and-Rate-Limiting)
+28. [CDN Optimization](#CDN-Optimization)
+29. [SEO Best Practices](#SEO-Best-Practices)
+30. [Server-Side Rendering (SSR) Enhancements](<#Server-Side-Rendering-(SSR)-Enhancements>)
+31. [Static Site Generation with On-Demand Revalidation](#Static-Site-Generation-with-On-Demand-Revalidation)
 
 ---
 
