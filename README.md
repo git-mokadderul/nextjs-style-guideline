@@ -281,6 +281,30 @@ In this example, the `styles.button` class is imported from the `styles.module.c
 
 **[⬆ back to top](#table-of-contents)**
 
+## CSS-in-JS with Styled Components
+
+Using CSS-in-JS libraries like Styled Components can help you style your Next.jsapplications more effectively. This approach allows you to write CSS that is scoped to a single component and provides better maintainability.
+
+Example:
+
+javascript
+import styled from 'styled-components';
+
+const Button = styled.button`
+background-color: blue;
+color: white;
+padding: 10px;
+border: none;
+border-radius: 5px;
+
+&:hover {
+background-color: darkblue;
+}
+`;
+
+const MyComponent = () => <Button>Click Me</Button>;
+**[⬆ back to top](#table-of-contents)**
+
 ## Caching Data in Next.js
 
 Caching data is an effective technique to improve the performance and user experience of Next.js applications. By storing frequently accessed data in a cache, subsequent requests can be served faster, reducing the load on the server and improving overall performance. Next.js provides various methods and strategies to implement caching in your application.
