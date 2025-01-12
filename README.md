@@ -288,6 +288,8 @@ Using CSS-in-JS libraries like Styled Components can help you style your Next.js
 Example:
 
 javascript
+
+```
 import styled from 'styled-components';
 
 const Button = styled.button`
@@ -301,6 +303,7 @@ border-radius: 5px;
 background-color: darkblue;
 }
 `;
+```
 
 const MyComponent = () => <Button>Click Me</Button>;
 **[⬆ back to top](#table-of-contents)**
