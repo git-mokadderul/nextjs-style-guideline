@@ -48,8 +48,6 @@
 27. [Next.js Middleware for Caching and Rate Limiting](#Nextjs-Middleware-for-Caching-and-Rate-Limiting)
 28. [CDN Optimization](#CDN-Optimization)
 29. [SEO Best Practices](#SEO-Best-Practices)
-30. [Server-Side Rendering (SSR) Enhancements](<#Server-Side-Rendering-(SSR)-Enhancements>)
-31. [Static Site Generation with On-Demand Revalidation](#Static-Site-Generation-with-On-Demand-Revalidation)
 
 ---
 
@@ -278,6 +276,21 @@ Here’s a Next.js example of how to use CSS Modules:
    ```
 
 In this example, the `styles.button` class is imported from the `styles.module.css` file using the `styles` object. This allows you to use the CSS classes defined in the module as properties of the `styles` object. This approach ensures that the class names are scoped to the component and won’t clash with global styles.
+
+**[⬆ back to top](#table-of-contents)**
+
+## Remove Unused Dependencies & Code
+
+The act of removing unused dependencies and files within a software project holds substantial importance for a variety of reasons:
+
+- **Efficiency and Performance**: Unused dependencies and files can bloat the application’s package size, slowing down loading times. By eliminating these
+
+extraneous elements, the codebase becomes more streamlined, resulting in quicker load times and enhanced overall performance.
+
+- **Resource Management**: Unused dependencies consume storage space within the project’s structure, and while this might seem negligible in smaller projects, it can accumulate and pose challenges in larger endeavors. Effective resource management is essential for maintaining a well-organized and clutter-free codebase.
+- **Security**: Each dependency introduced into a project carries potential security risks. By removing unused dependencies, the attack surface is reduced, minimizing vulnerabilities and enhancing the application’s overall security posture.
+
+Use the [depcheck](https://www.npmjs.com/package/depcheck) package to find unused dependencies in your project, and use [unimported](https://www.npmjs.com/package/unimported) to remove all the unimported files.
 
 **[⬆ back to top](#table-of-contents)**
 
@@ -571,6 +584,198 @@ function Profile() {
 
 **[⬆ back to top](#table-of-contents)**
 
+## Server Actions
+
+Server Actions allow you to define custom server-side functions directly within your Next.jsproject. This enables more efficient data fetching and processing, as the server can handle specific tasks without needing additional API endpoints.
+
+Example in javascript:
+
+```
+// Define a server action
+export const getServerData = async () => {
+  const response = await fetch('https://api.example.com/data');
+  const data = await response.json();
+  return data;
+};
+
+// Use the server action in your component
+import { getServerData } from './serverActions';
+
+const MyComponent = async () => {
+  const data = await getServerData();
+  return <div>{data}</div>;
+};
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+## GraphQL Integration
+
+GraphQL provides a flexible and efficient way to manage data fetching in Next.jsapplications. By integrating GraphQL, you can improve the performance and maintainability of your data layer.
+
+Example in javascript:
+
+```
+import { GraphQLClient, gql } from 'graphql-request';
+
+const client = new GraphQLClient('https://api.example.com/graphql');
+
+const query = gql`
+  query {
+    users {
+      id
+      name
+    }
+  }
+`;
+
+export const fetchUsers = async () => {
+  const data = await client.request(query);
+  return data.users;
+};
+
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+## API Routes with Middleware
+
+Middleware in API routes allows you to run custom logic before your API routes handle the request. This can be used for tasks like authentication, logging, or modifying the request object.
+
+Example in javascript:
+
+```
+// pages/api/middleware-example.js
+import { NextResponse } from 'next/server';
+
+export function middleware(req) {
+  // Perform some logic, e.g., authentication
+  if (!req.headers.get('Authorization')) {
+    return NextResponse.redirect('/login');
+  }
+
+  // Pass the request to the next middleware or route handler
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: '/api/middleware-example',
+};
+
+// pages/api/middleware-example.js (route handler)
+export default function handler(req, res) {
+  res.status(200).json({ message: 'Middleware passed!' });
+}
+
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+## Suspense for Data Fetching
+
+The new Suspense feature in Next.js15 allows you to handle asynchronous data fetching more gracefully, providing a better user experience with built-in loading states.
+
+Example in javascript:
+
+```
+import { Suspense } from 'react';
+import MyComponent from './MyComponent';
+
+const MyPage = () => (
+  <div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <MyComponent />
+    </Suspense>
+  </div>
+);
+
+export default MyPage;
+
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+## Error Handling
+
+Effective error handling can significantly improve the robustness and user experience of your application.
+
+Example :
+
+1.Custom Error Pages:
+
+```
+// pages/_error.js
+import React from 'react';
+
+function Error({ statusCode }) {
+  return (
+    <p>
+      {statusCode
+        ? `An error ${statusCode} occurred on server`
+        : 'An error occurred on client'}
+    </p>
+  );
+}
+
+Error.getInitialProps = ({ res, err }) => {
+  const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
+  return { statusCode };
+};
+
+export default Error;
+
+```
+
+2.Error Boundary for Components:
+
+```
+import React, { Component } from 'react';
+
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('ErrorBoundary caught an error', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <h1>Something went wrong.</h1>;
+    }
+
+    return this.props.children;
+  }
+}
+
+export default ErrorBoundary;
+
+```
+
+3.Usage in a Component:
+
+```
+import ErrorBoundary from './ErrorBoundary';
+import SomeComponent from './SomeComponent';
+
+const App = () => (
+  <ErrorBoundary>
+    <SomeComponent />
+  </ErrorBoundary>
+);
+
+export default App;
+
+```
+
+**[⬆ back to top](#table-of-contents)**
+
 ## TypeScript Support
 
 One of the best practices when working with Next.js projects is to leverage TypeScript for an enhanced development experience and improved code quality. TypeScript is a statically-typed superset of JavaScript that adds type annotations to the language. It provides several benefits that make it a best practice for Next.js projects:
@@ -640,18 +845,53 @@ export default MyPage;
 
 **[⬆ back to top](#table-of-contents)**
 
-## Remove Unused Dependencies & Code
+## WebSockets for Real-time Communication
 
-The act of removing unused dependencies and files within a software project holds substantial importance for a variety of reasons:
+WebSockets enable real-time communication between the client and server, allowing for features like live updates and notifications.
 
-- **Efficiency and Performance**: Unused dependencies and files can bloat the application’s package size, slowing down loading times. By eliminating these
+Example in javascript:
 
-extraneous elements, the codebase becomes more streamlined, resulting in quicker load times and enhanced overall performance.
+```
+import { useEffect, useState } from 'react';
 
-- **Resource Management**: Unused dependencies consume storage space within the project’s structure, and while this might seem negligible in smaller projects, it can accumulate and pose challenges in larger endeavors. Effective resource management is essential for maintaining a well-organized and clutter-free codebase.
-- **Security**: Each dependency introduced into a project carries potential security risks. By removing unused dependencies, the attack surface is reduced, minimizing vulnerabilities and enhancing the application’s overall security posture.
+const useWebSocket = (url) => {
+  const [messages, setMessages] = useState([]);
 
-Use the [depcheck](https://www.npmjs.com/package/depcheck) package to find unused dependencies in your project, and use [unimported](https://www.npmjs.com/package/unimported) to remove all the unimported files.
+  useEffect(() => {
+    const socket = new WebSocket(url);
+
+    socket.onmessage = (event) => {
+      setMessages((prev) => [...prev, event.data]);
+    };
+
+    return () => {
+      socket.close();
+    };
+  }, [url]);
+
+  return messages;
+};
+
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+## Experimental Features
+
+Next.jsoften introduces experimental features that you can try out before they become stable. Keeping an eye on these can give you a competitive edge and allow you to provide feedback to the Next.jsteam.
+
+Example in javascript:
+
+```
+// next.config.js
+module.exports = {
+  experimental: {
+    appDir: true,
+    scrollRestoration: true,
+  },
+};
+
+```
 
 **[⬆ back to top](#table-of-contents)**
 
@@ -684,6 +924,52 @@ Vercel makes it easy to connect your custom domain to your Next.js app. You can 
 Vercel provides a collaborative environment where you can work with your team members on the same project. You can easily share preview URLs and collaborate on code changes, making it a breeze to iterate and ship your app faster.
 
 Overall, deploying your Next.js app to Vercel offers a range of benefits, including an easy deployment process, automatic scaling, global network, serverless functions, custom domains, SSL support, and real-time collaboration. With Vercel, you can focus on building your app while enjoying the power and flexibility of a reliable hosting platform.
+
+## Edge Functions
+
+Edge Functions run server-side code closer to the user, resulting in reduced latency and faster response times. Next.js15 makes it easy to deploy edge functions with automatic optimizations for performance and scalability.
+
+Example in javascript:
+
+```
+export default function handler(req, res) {
+  res.status(200).json({ message: 'Hello from the edge!' });
+}
+
+// Deploy to Vercel edge
+import { EdgeFunction } from '@vercel/edge';
+
+export default EdgeFunction(handler);
+
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+## Global Middleware
+
+Global Middleware allows you to define middleware functions that can be applied to all routes in your Next.jsapplication, providing a centralized way to handle common tasks like authentication and logging.
+
+Example in javascript:
+
+```
+// middleware.js
+import { NextResponse } from 'next/server';
+
+export function middleware(req) {
+  // Add your logic here, e.g., authentication check
+  if (!req.headers.get('Authorization')) {
+    return NextResponse.redirect('/login');
+  }
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ['/api/:path*'], // Apply middleware to API routes
+};
+
+```
+
+**[⬆ back to top](#table-of-contents)**
 
 ## Client Component Placement Strategy in Next.js
 
@@ -729,5 +1015,179 @@ const DynamicContent = () => {
 
 export default DynamicContent;
 ```
+
+**[⬆ back to top](#table-of-contents)**
+
+## Security Best Practices
+
+Ensuring the security of your Next.jsapplication is crucial. This involves implementing measures like content security policies, securing cookies, and avoiding security vulnerabilities.
+
+Example in javascript:
+
+```
+// next.config.js
+module.exports = {
+  async headers() {
+    return [
+      {
+        source: '/',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: "default-src 'self'; img-src 'self' data:; media-src media1.com media2.com; script-src userscripts.example.com",
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+        ],
+      },
+    ];
+  },
+};
+
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+## Progressive Enhancement and Graceful Degradation
+
+### Ensuring Your Site Works for All Users
+
+Progressive enhancement ensures your site provides basic functionality to all users while enhancing it for those with advanced browsers and capabilities.
+
+Example:
+
+Use feature detection to serve advanced features only to capable browsers:
+
+```
+if ('IntersectionObserver' in window) {
+  // Use IntersectionObserver for lazy loading
+} else {
+  // Fallback for browsers without IntersectionObserver
+}
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+## Nextjs Middleware for Caching and Rate Limiting
+
+### Implementing Caching and Rate Limiting
+
+Middleware can be used for caching responses and rate-limiting requests to improve performance and security.
+
+Example:
+
+1.Implement caching middleware:
+
+```
+// middleware.js
+import { NextResponse } from 'next/server';
+
+export function middleware(req) {
+  const response = NextResponse.next();
+
+  // Add caching headers
+  response.headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+
+  return response;
+}
+
+export const config = {
+  matcher: '/api/:path*',
+};
+
+```
+
+2.Implement rate limiting:
+
+```
+// middleware.js
+const rateLimit = require('express-rate-limit');
+
+export function middleware(req, res, next) {
+  const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+  });
+
+  limiter(req, res, next);
+}
+
+export const config = {
+  matcher: '/api/:path*',
+};
+
+
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+## CDN Optimization
+
+### Leveraging CDN for Faster Content Delivery
+
+Using a CDN can significantly improve the performance of your Next.jsapplication by caching content closer to your users.
+
+Example:
+
+1.Set up a CDN (e.g., Vercel, Cloudflare):
+
+Follow the CDN provider's instructions to set up and configure your Next.js application.
+
+2.Update your Next.jsconfiguration to leverage the CDN:
+
+```
+// next.config.js
+module.exports = {
+  images: {
+    domains: ['cdn.example.com'],
+  },
+};
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+## SEO Best Practices
+
+### Optimizing for Search Engines
+
+Ensuring your Next.jsapplication is optimized for search engines is crucial for visibility and traffic.
+
+Example:
+
+1.Use proper meta tags:
+
+```
+import Head from 'next/head';
+
+const MyComponent = () => (
+  <Head>
+    <title>My Page Title</title>
+    <meta name="description" content="My Page Description" />
+    <meta property="og:title" content="My Page Title" />
+    <meta property="og:description" content="My Page Description" />
+    <meta property="og:type" content="website" />
+  </Head>
+);
+
+export default MyComponent;
+
+```
+
+2.Optimize URL structure and use semantic HTML:
+
+```
+// Use descriptive URLs
+<Link href="/products/smartphone-123">View Smartphone</Link>
+
+// Use semantic HTML
+<header>
+  <h1>Page Title</h1>
+</header>
+
+```
+
+**[⬆ back to top](#table-of-contents)**
 
 In this example, `DynamicContent` fetches data dynamically on the client side, making it suitable for placement as a lower leaf component in a Next.js application. This ensures that server-side rendering optimizes initial page load performance while maintaining flexibility for client-side interactions.
