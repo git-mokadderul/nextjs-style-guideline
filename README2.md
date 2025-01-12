@@ -79,6 +79,19 @@
 46. [Nested Classes Aren’t for Providing Scope](#nested-classes-arent-for-providing-scope)
 47. [Variables, Lots of Variables!](#variables-lots-of-variables)
 
+### **React 19**
+
+48. [React Compiler](#React-Compiler)
+49. [Server Components](#Server-Components)
+50. [New Hooks](#New-Hooks)
+51. [Document Metadata](#Document-Metadata)
+52. [Asset Loading](#Asset-Loading)
+53. [Enhanced Web Components](#Enhanced-Web-Components)
+54. [Actions](#Actions)
+55. [Enhanced TypeScript Support](#Enhanced-TypeScript-Support)
+56. [Performance Optimizations](#Performance-Optimizations)
+57. [New use API](#New-use-API)
+
 ---
 
 # React
@@ -1887,5 +1900,349 @@ To define a variable accessible globally:
 </tr>
 </tbody>
 </table>
+
+**[⬆ back to top](#table-of-contents)**
+
+## React Compiler
+
+The React Compiler optimizes performance automatically. It helps in writing cleaner and more efficient code.
+
+Example in jsx:
+
+```
+// next.config.js
+import { Compiler } from 'react-compiler';
+
+function App() {
+  return (
+    <Compiler>
+      <div>Hello, world!</div>
+    </Compiler>
+  );
+}
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+## React Compiler
+
+The React Compiler optimizes performance automatically. It helps in writing cleaner and more efficient code.
+
+Example in jsx:
+
+```
+// next.config.js
+import { Compiler } from 'react-compiler';
+
+function App() {
+  return (
+    <Compiler>
+      <div>Hello, world!</div>
+    </Compiler>
+  );
+}
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+## Server Components
+
+Server Components blend server and client rendering. This can improve performance by reducing the amount of code sent to the client.
+
+Example in jsx:
+
+```
+import { ServerComponent } from 'react-server';
+
+function MyServerComponent() {
+  return <div>This is a server component</div>;
+}
+
+export default function App() {
+  return (
+    <ServerComponent>
+      <MyServerComponent />
+    </ServerComponent>
+  );
+}
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+## New Hooks
+
+React 19 introduces new hooks like useFormStatus(), useFormState(), and useOptimistic() to simplify form handling and optimistic updates.
+
+Example in jsx:
+
+```
+import { useFormStatus, useFormState, useOptimistic } from 'react-hooks';
+
+function MyForm() {
+  const formStatus = useFormStatus();
+  const formState = useFormState();
+  const optimisticUpdate = useOptimistic();
+
+  return (
+    <form>
+      <input type="text" />
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+## Document Metadata
+
+This feature allows developers to manage document metadata more effectively, making it easier to handle SEO and accessibility.
+
+Example in jsx:
+
+```
+import { setDocumentMetadata } from 'react-document-metadata';
+
+function App() {
+  setDocumentMetadata({
+    title: 'My React App',
+    description: 'A simple React app',
+  });
+
+  return <div>Hello, world!</div>;
+}
+
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+## Asset Loading
+
+React 19 improves asset loading by enabling assets to load in the background, enhancing the user experience.
+
+Example in jsx:
+
+```
+import { loadAssets } from 'react-assets';
+
+function App() {
+  loadAssets(['image1.jpg', 'style.css']);
+
+  return <div>Hello, world!</div>;
+}
+
+
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+## Enhanced Web Components
+
+React 19 now supports web components, allowing developers to use custom elements more seamlessly.
+
+Example in jsx:
+
+```
+import { WebComponent } from 'react-web-component';
+
+function MyWebComponent() {
+  return <WebComponent>This is a web component</WebComponent>;
+}
+
+export default function App() {
+  return <MyWebComponent />;
+}
+
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+## Actions
+
+Actions are a new way to interact with DOM elements. They simplify the process of updating the UI based on user interactions.
+
+Example in jsx:
+
+```
+import { useAction } from 'react-actions';
+
+function MyButton() {
+  const handleClick = useAction(() => {
+    console.log('Button clicked');
+  });
+
+  return <button onClick={handleClick}>Click Me</button>;
+}
+
+
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+## Enhanced TypeScript Support
+
+React 19 improves TypeScript support, making it easier to use TypeScript with React. This includes better type inference and more comprehensive type definitions.
+
+Example in jsx:
+
+```
+import React, { FC } from 'react';
+
+interface Props {
+  message: string;
+}
+
+const MyComponent: FC<Props> = ({ message }) => <div>{message}</div>;
+
+export default MyComponent;
+
+
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+## Performance Optimizations
+
+React 19 includes various performance optimizations to make your app faster and leaner. This includes improved memory management and faster rendering.
+
+Example in jsx:
+
+```
+import React from 'react';
+
+function MyComponent() {
+  return <div>Hello, world!</div>;
+}
+
+
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+## New use API
+
+The use API allows you to read values from resources like promises or context directly within your components. This can simplify the process of fetching data and managing state.
+
+### Basic Usage
+
+You can use the use API to read values from a promise or a context.
+
+Example in jsx:
+
+```
+import { use } from 'react';
+
+function MyComponent() {
+  const message = use(MyContext);
+  const promiseValue = use(myPromise);
+
+  return (
+    <div>
+      <p>{message}</p>
+      <p>{promiseValue}</p>
+    </div>
+  );
+}
+
+```
+
+### Handling Promises
+
+When using the use API with promises, the component where use is called needs to be integrated with Suspense and optionally error boundaries.
+
+Example in jsx:
+
+```
+import { use } from 'react';
+
+function MyComponent() {
+  const message = use(MyContext);
+  const promiseValue = use(myPromise);
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <div>
+        <p>{message}</p>
+        <p>{promiseValue}</p>
+      </div>
+    </Suspense>
+  );
+}
+
+```
+
+### Conditional Rendering
+
+The use API can also be used inside conditional statements to manage different rendering logic based on the resolved value.
+
+Example in jsx:
+
+```
+import { use } from 'react';
+
+function MyComponent() {
+  const isAdmin = use(isAdminContext);
+
+  return (
+    <div>
+      {isAdmin ? <AdminPanel /> : <UserPanel />}
+    </div>
+  );
+}
+
+```
+
+### Integration with Context
+
+To use the use API with context, you first need to set up your context provider.
+
+Example in jsx:
+
+```
+// ThemeContext.ts
+import { createContext, Dispatch, SetStateAction } from 'react';
+
+type Theme = 'light' | 'dark';
+interface IThemeContext {
+  theme: Theme;
+  setTheme: Dispatch<SetStateAction<Theme>>;
+}
+
+export const ThemeContext = createContext<IThemeContext>({ theme: 'dark', setTheme: () => {} });
+
+// Context.tsx
+import React, { useState } from 'react';
+import { ThemeContext } from './ThemeContext';
+
+export default function Context({ children }: { children: React.ReactNode }) {
+  const [theme, setTheme] = useState<Theme>('dark');
+
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+// MyComponent.tsx
+import { use } from 'react';
+import { ThemeContext } from './ThemeContext';
+
+function MyComponent() {
+  const { theme, setTheme } = use(ThemeContext);
+
+  return (
+    <div>
+      <p>Current theme: {theme}</p>
+      <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+        Toggle Theme
+      </button>
+    </div>
+  );
+}
+
+
+```
 
 **[⬆ back to top](#table-of-contents)**
