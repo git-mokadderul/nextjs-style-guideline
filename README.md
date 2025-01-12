@@ -285,9 +285,7 @@ In this example, the `styles.button` class is imported from the `styles.module.c
 
 Using CSS-in-JS libraries like Styled Components can help you style your Next.jsapplications more effectively. This approach allows you to write CSS that is scoped to a single component and provides better maintainability.
 
-Example:
-
-javascript
+Example in javascript:
 
 ```
 import styled from 'styled-components';
@@ -303,9 +301,38 @@ border-radius: 5px;
 background-color: darkblue;
 }
 `;
-```
 
 const MyComponent = () => <Button>Click Me</Button>;
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+## Optimizing Fonts and Icons
+
+Using optimized fonts and icons can significantly improve the performance of your Next.jsapplication. This includes leveraging web fonts and SVG icons.
+
+Example in javascript:
+
+```
+// next.config.js
+module.exports = {
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    });
+    return config;
+  },
+};
+
+// Usage in component
+import Icon from './icon.svg';
+
+const MyComponent = () => <Icon />;
+
+`;
+```
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Caching Data in Next.js
